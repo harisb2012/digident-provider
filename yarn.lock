@@ -4293,6 +4293,12 @@ react-native-screens@^1.0.0-alpha.11:
   version "1.0.0-alpha.15"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.15.tgz#5b5a0041310b46f12048fda1908d52e7290ec18f"
 
+react-native-step-indicator@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-step-indicator/-/react-native-step-indicator-0.0.9.tgz#939b78b43c131c048cf52493c4ed8a1bbc8ce034"
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-svg@^7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-7.1.2.tgz#ccc7676c5181945e7d1122b763f66b98fa9cdbfd"
@@ -4667,6 +4673,10 @@ rimraf@^2.5.4, rimraf@^2.6.1:
 rimraf@~2.2.6:
   version "2.2.8"
   resolved "http://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
+
+rn-viewpager@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/rn-viewpager/-/rn-viewpager-1.2.9.tgz#7f06f898e23b296f3b5be7c98bd9101d94427779"
 
 rsvp@^3.3.3:
   version "3.6.2"
