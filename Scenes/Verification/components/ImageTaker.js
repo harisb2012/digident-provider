@@ -35,6 +35,10 @@ export class ImageTaker extends React.Component {
     }
   }
 
+  get hasImage() {
+    return this.state.imageUri;
+  }
+
   componentDidMount() {
     this.props.getFromMemory().then(value => {
       this.setState({
@@ -76,11 +80,9 @@ export class ImageTaker extends React.Component {
             }}
           />
 
-          <View style={{ flex: 1, position: 'absolute', bottom: 20, flexDirection: 'row' }}>
-            <TouchableOpacity onPress={() => this.retake()} style={styles.capture}>
-              <Text style={{ fontSize: 14 }}>RETAKE</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={() => this.retake()} style={styles.capture}>
+            <Text style={{ fontSize: 14 }}>RETAKE</Text>
+          </TouchableOpacity>
         </Container>
         
       )

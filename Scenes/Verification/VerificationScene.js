@@ -2,8 +2,6 @@ import React from 'react'
 import { ScanFrontStep } from './ScanFrontStep'
 import { View, Animated } from 'react-native'
 import { AppLayout } from '../../components/Layout/AppLayout'
-import { stepIndicatorStyles } from './config/stepIndicatorStyles'
-import styled from 'styled-components/native'
 import { ScanBackStep } from './ScanBackStep'
 import { DetailsStep } from './DetailsStep'
 import { SelfieStep } from './SelfieStep'
@@ -12,11 +10,7 @@ import { iOSUIKit } from 'react-native-typography'
 import { flatten } from 'lodash'
 
 import { TabView, TabBar, SceneMap, PagerScroll } from 'react-native-tab-view'
-
-const StepsIndicatorWrapper = styled.View`
-  padding: 15px;
-  margin-bottom: 15;
-`
+import { VerificationContext } from './config/VerificationContext';
 
 const styles = {
   tabbar: {
@@ -37,7 +31,10 @@ const styles = {
 
 export class VerificationScene extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this._goToNext = this._goToNext.bind(this);
+
     this.state = {
       index: 0,
       routes: [
@@ -45,8 +42,14 @@ export class VerificationScene extends React.Component {
         { key: 'back', title: '2' },
         { key: 'details', title: '3' },
         { key: 'selfie', title: '4' }
-      ]
+      ],
+
+      goToNextStep: this._goToNext
     }
+  }
+
+  _goToNext() {
+    this.setState(prev => ({ index: prev.index + 1 }));
   }
 
   _handleIndexChange = index => {
@@ -105,16 +108,18 @@ export class VerificationScene extends React.Component {
   render() {
     return (
       <AppLayout>
-        <TabView
-          scrollEnabled={false}
-          style={{ flex: 1 }}
-          navigationState={this.state}
-          renderScene={this._renderScene}
-          renderTabBar={this._renderTabBar}
-          renderPager={this._renderPager}
-          onIndexChange={this._handleIndexChange}
-          tabBarPosition="bottom"
-        />
+        <VerificationContext.Provider value={this.state}>
+          <TabView
+            scrollEnabled={false}
+            style={{ flex: 1 }}
+            navigationState={this.state}
+            renderScene={this._renderScene}
+            renderTabBar={this._renderTabBar}
+            renderPager={this._renderPager}
+            onIndexChange={this._handleIndexChange}
+            tabBarPosition="bottom"
+          />
+        </VerificationContext.Provider>
       </AppLayout>
     )
   }
