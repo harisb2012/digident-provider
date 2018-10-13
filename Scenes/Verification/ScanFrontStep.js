@@ -1,20 +1,18 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import styled from 'styled-components/native';
-import { iOSUIKit } from 'react-native-typography';
+import { Text } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import { iOSUIKit } from 'react-native-typography';
+import styled from 'styled-components/native';
 
 const Wrapper = styled.View`
   flex: 1;
 `;
 
-const styles = StyleSheet.create({
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  }
-});
+const CameraWrapper = styled.View`
+  flex: 1;
+  flex-direction: column;
+  background-color: black;
+`;
 
 export class ScanFrontStep extends React.Component {
   constructor(props) {
@@ -25,19 +23,26 @@ export class ScanFrontStep extends React.Component {
     return (
       <Wrapper>
         <Text style={iOSUIKit.largeTitleEmphasized}>Scan Front</Text>
-        <RNCamera
-            ref={ref => {
-              this.camera = ref;
-            }}
-            style = {styles.preview}
-            type={RNCamera.Constants.Type.back}
-            flashMode={RNCamera.Constants.FlashMode.on}
-            permissionDialogTitle={'Permission to use camera'}
-            permissionDialogMessage={'We need your permission to use your camera phone'}
-            onGoogleVisionBarcodesDetected={({ barcodes }) => {
-              console.log(barcodes)
-            }}
-        />
+
+        <CameraWrapper>
+          <RNCamera
+              ref={ref => {
+                this.camera = ref;
+              }}
+              style={{
+                flex: 1,
+                justifyContent: 'flex-end',
+                alignItems: 'center'
+              }}
+              type={RNCamera.Constants.Type.back}
+              flashMode={RNCamera.Constants.FlashMode.on}
+              permissionDialogTitle={'Permission to use camera'}
+              permissionDialogMessage={'We need your permission to use your camera phone'}
+              onGoogleVisionBarcodesDetected={({ barcodes }) => {
+                console.log(barcodes)
+              }}
+          />
+        </CameraWrapper>
       </Wrapper>
     );
   }
