@@ -1,14 +1,17 @@
 import { createStackNavigator } from 'react-navigation';
 import * as routes from './routes';
 import mainRoutes from './routes/mainRoutes';
+import verificationRoutes from './routes/verificationRoutes';
 
 const modalRoutes = {
-  ...mainRoutes.modal
+  ...mainRoutes.modals,
+  ...verificationRoutes.modals
 };
 
 const mainRoutesNavigator = createStackNavigator(
   {
     ...mainRoutes.main,
+    ...verificationRoutes.main
   },
 
   {

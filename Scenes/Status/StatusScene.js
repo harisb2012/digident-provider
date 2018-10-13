@@ -1,35 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import styled from 'styled-components/native';
+import * as routes from '../../navigation/routes';
 
-const instructions = 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu';
+const Wrapper = styled.View`
+  flex: 1;
+`;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+const Text = styled.Text``;
 
 export class StatusScene extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.startVerification = this.startVerification.bind(this);
+  }
+
+  startVerification() {
+    this.props.navigation.navigate(routes.VERIFICATION)
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <Wrapper>
+        <TouchableOpacity onPress={this.startVerification}>
+          <Text>Start verification</Text>
+        </TouchableOpacity>
+      </Wrapper>
     );
   }
 }
