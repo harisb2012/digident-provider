@@ -3,11 +3,7 @@ import { Text } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { iOSUIKit } from 'react-native-typography';
 import styled from 'styled-components/native';
-
-const Wrapper = styled.View`
-  flex: 1;
-  padding: 20px;
-`;
+import { VerificationLayout } from './components/VerificationLayout';
 
 const CameraWrapper = styled.View`
   flex: 1;
@@ -22,7 +18,7 @@ export class ScanFrontStep extends React.Component {
 
   render() {
     return (
-      <Wrapper>
+      <VerificationLayout>
         <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Scan Front</Text>
         <Text
           style={iOSUIKit.subheadEmphasizedWhite}
@@ -49,7 +45,7 @@ export class ScanFrontStep extends React.Component {
               }}
           />
         </CameraWrapper>
-      </Wrapper>
+      </VerificationLayout>
     );
   }
 }
