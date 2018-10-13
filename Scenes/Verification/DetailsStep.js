@@ -5,6 +5,7 @@ import { VerificationLayout } from './components/VerificationLayout';
 import { DetailsForm } from './forms/DetailsForm';
 import styled from 'styled-components/native';
 import ButtonComponent from 'react-native-button-component';
+import { customShadowStyle } from '../../properties/customShadowStyle';
 
 const FormWrapper = styled.View`
   background: white;
@@ -20,18 +21,6 @@ const CenterWrapper = styled.View`
 const ButtonWrapper = styled.View`
   padding-top: 20;
 `;
-
-const customShadowStyle = {
-  shadowColor: "#000",
-  shadowOffset: {
-    width: 0,
-    height: 4,
-  },
-  shadowOpacity: 0.20,
-  shadowRadius: 20.65,
-
-  elevation: 8,
-};
 
 export class DetailsStep extends React.PureComponent {
   render() {

@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 import { Text, TouchableOpacity } from 'react-native';
 import { iOSUIKit } from 'react-native-typography';
 import * as routes from '../../../navigation/routes';
+import { customShadowStyle } from '../../../properties/customShadowStyle';
 
 const Wrapper = styled.View`
   background: white;
@@ -14,18 +15,6 @@ const Wrapper = styled.View`
 const Title = styled.Text`
   text-align: center;
 `;
-
-const customShadowStyle = {
-  shadowColor: "#000",
-  shadowOffset: {
-    width: 0,
-    height: 4,
-  },
-  shadowOpacity: 0.20,
-  shadowRadius: 20.65,
-
-  elevation: 8,
-};
 
 export class NotVerifiedStatus extends React.PureComponent {
   constructor(props) {
