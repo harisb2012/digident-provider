@@ -34,7 +34,7 @@ const saveSelfie = value => {
 }
 
 const saveUserDetails = value => {
-  return AsyncStorage.setItem(USER_DETAILS_KEY, value)
+  return AsyncStorage.setItem(USER_DETAILS_KEY, JSON.stringify(value))
 }
 
 const getIdentity = () => {

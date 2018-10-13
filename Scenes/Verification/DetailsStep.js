@@ -7,6 +7,8 @@ import styled from 'styled-components/native'
 import Button from '../../components/Button'
 import { customShadowStyle } from '../../properties/customShadowStyle'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { VerificationContext } from './config/VerificationContext';
+import IdentityService from '../../Services/IdentityService';
 
 const FormWrapper = styled.View`
   background: white;
@@ -31,23 +33,37 @@ const contentContainerStyle = {
 export class DetailsStep extends React.PureComponent {
   render() {
     return (
-      <VerificationLayout>
-        <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Personal Details</Text>
+      <VerificationContext.Consumer>
+        {({ goToNextStep }) => (
+          <VerificationLayout>
+            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Personal Details</Text>
 
-        <Text style={iOSUIKit.subheadEmphasizedWhite}>
-          Please confirm your personal details
-        </Text>
+            <Text style={iOSUIKit.subheadEmphasizedWhite}>
+              Please confirm your personal details
+            </Text>
 
-        <KeyboardAwareScrollView contentContainerStyle={contentContainerStyle}>
-          <FormWrapper style={customShadowStyle}>
-            <DetailsForm />
+            <KeyboardAwareScrollView contentContainerStyle={contentContainerStyle}>
+              <FormWrapper style={customShadowStyle}>
+                <DetailsForm
+                  ref={form => {
+                    this.form = form;
+                  }}
+                  onSubmit={(values) => {
+                    IdentityService.saveUserDetails(values);
+                    goToNextStep();
+                  }}
+                />
 
-            <ButtonWrapper>
-              <Button>Next</Button>
-            </ButtonWrapper>
-          </FormWrapper>
-        </KeyboardAwareScrollView>
-      </VerificationLayout>
+                <ButtonWrapper>
+                  <Button onPress={() => {
+                    this.form.submit();
+                  }}>Next</Button>
+                </ButtonWrapper>
+              </FormWrapper>
+            </KeyboardAwareScrollView>
+          </VerificationLayout>
+        )}
+      </VerificationContext.Consumer>
     )
   }
 }

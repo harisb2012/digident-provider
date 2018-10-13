@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { Formik } from 'formik'
 import { TextField } from 'react-native-material-textfield';
 import styled from 'styled-components/native';
@@ -8,11 +9,18 @@ const Wrapper = styled.View`
 `;
 
 export class DetailsForm extends React.Component {
+  submit() {
+    this.formik.submitForm();
+  }
+
   render() {
     return (
       <Formik
+        ref={formik => {
+          this.formik = formik;
+        }}
         onSubmit={values => {
-          Keyboard.dismiss()
+          this.props.onSubmit(values);
         }}
       >
         {({ handleChange, handleSubmit, values }) => (
@@ -52,3 +60,7 @@ export class DetailsForm extends React.Component {
     )
   }
 }
+
+DetailsForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired
+};

@@ -34,6 +34,7 @@ export class VerificationScene extends React.Component {
     super(props);
 
     this._goToNext = this._goToNext.bind(this);
+    this._finalise = this._finalise.bind(this);
 
     this.state = {
       index: 0,
@@ -44,8 +45,13 @@ export class VerificationScene extends React.Component {
         { key: 'selfie', title: '4' }
       ],
 
-      goToNextStep: this._goToNext
+      goToNextStep: this._goToNext,
+      finalise: this._finalise
     }
+  }
+
+  _finalise() {
+    alert('To be implemented');
   }
 
   _goToNext() {

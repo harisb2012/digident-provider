@@ -4,6 +4,10 @@ import { iOSUIKit } from 'react-native-typography';
 import { VerificationLayout } from './components/VerificationLayout';
 import styled from 'styled-components/native';
 import { RNCamera } from 'react-native-camera';
+import { VerificationContext } from './config/VerificationContext';
+import IdentityService from '../../Services/IdentityService';
+import { ImageTaker } from './components/ImageTaker';
+import Button from '../../components/Button';
 
 const CameraWrapper = styled.View`
   flex: 1;
@@ -11,37 +15,57 @@ const CameraWrapper = styled.View`
   max-height: 60%;
 `;
 
-export class SelfieStep extends React.PureComponent {
+const ContentWrapper = styled.View`
+  flex: 1;
+  flex-direction: column;
+`;
+
+const ButtonWrapper = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+`;
+
+export class SelfieStep extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasImage: false
+    };
+  }
+
   render() {
     return (
-      <VerificationLayout>
-        <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Take a Selfie With ID Document</Text>
-        <Text
-          style={iOSUIKit.subheadEmphasizedWhite}
-        >
-          Place it right next to your head
-        </Text>
+      <VerificationContext.Consumer>
+        {({ finalise }) => (
+          <VerificationLayout>
+            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Take a Selfie With ID Document</Text>
+            <Text
+              style={iOSUIKit.subheadEmphasizedWhite}
+            >
+              Place it right next to your head
+            </Text>
 
-        <CameraWrapper>
-          <RNCamera
-              ref={ref => {
-                this.camera = ref;
-              }}
-              style={{
-                flex: 1,
-                justifyContent: 'flex-end',
-                alignItems: 'center'
-              }}
-              type={RNCamera.Constants.Type.back}
-              flashMode={RNCamera.Constants.FlashMode.on}
-              permissionDialogTitle={'Permission to use camera'}
-              permissionDialogMessage={'We need your permission to use your camera phone'}
-              onGoogleVisionBarcodesDetected={({ barcodes }) => {
-                console.log(barcodes)
-              }}
-          />
-        </CameraWrapper>
-      </VerificationLayout>
+            <ContentWrapper>
+              <CameraWrapper>
+                <ImageTaker
+                  ref={imageTaker => { this.imageTaker = imageTaker }}
+                  getFromMemory={IdentityService.getSelfie}
+                  setToMemory={IdentityService.saveSelfie}
+                  onTaken={uri => {
+                    this.setState({ hasImage: true });
+                  }}
+                />
+              </CameraWrapper>
+
+              {this.state.hasImage && (
+                <ButtonWrapper>
+                  <Button onPress={finalise}>Finish</Button>
+                </ButtonWrapper>
+              )}
+            </ContentWrapper>
+          </VerificationLayout>
+        )}
+      </VerificationContext.Consumer>
     )
   }
 }
