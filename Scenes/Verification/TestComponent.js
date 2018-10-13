@@ -132,12 +132,6 @@ export default class App extends Component {
         <View style={styles.stepIndicator}>
           <StepIndicator customStyles={firstIndicatorStyles} currentPosition={this.state.currentPage} labels={["Account","Profile","Band","Membership","Dashboard"]} />
         </View>
-        <View style={styles.stepIndicator}>
-          <StepIndicator renderStepIndicator={this.renderStepIndicator} customStyles={secondIndicatorStyles} currentPosition={this.state.currentPage} labels={["Cart","Delivery Address","Order Summary","Payment Method","Track"]} />
-        </View>
-        <View style={styles.stepIndicator}>
-          <StepIndicator stepCount={4} customStyles={thirdIndicatorStyles} currentPosition={this.state.currentPage} labels={["Approval","Processing","Shipping","Delivery"]} />
-        </View>
         <ViewPager
           style={{flexGrow:1}}
           ref={(viewPager) => {this.viewPager = viewPager}}
