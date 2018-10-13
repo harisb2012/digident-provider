@@ -6,12 +6,13 @@ import styled from 'styled-components/native';
 
 const Wrapper = styled.View`
   flex: 1;
+  padding: 20px;
 `;
 
 const CameraWrapper = styled.View`
   flex: 1;
-  flex-direction: column;
-  background-color: black;
+  padding-top: 30;
+  max-height: 60%;
 `;
 
 export class ScanFrontStep extends React.Component {
@@ -22,7 +23,12 @@ export class ScanFrontStep extends React.Component {
   render() {
     return (
       <Wrapper>
-        <Text style={iOSUIKit.largeTitleEmphasized}>Scan Front</Text>
+        <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Scan Front</Text>
+        <Text
+          style={iOSUIKit.subheadEmphasizedWhite}
+        >
+          Please scan the front of your ID document
+        </Text>
 
         <CameraWrapper>
           <RNCamera

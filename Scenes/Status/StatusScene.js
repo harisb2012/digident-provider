@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import * as routes from '../../navigation/routes';
+import { AppLayout } from '../../components/Layout/AppLayout';
 
 const Wrapper = styled.View`
   flex: 1;
@@ -21,11 +22,13 @@ export class StatusScene extends React.PureComponent {
 
   render() {
     return (
-      <Wrapper>
-        <TouchableOpacity onPress={this.startVerification}>
-          <Text>Start verification</Text>
-        </TouchableOpacity>
-      </Wrapper>
+      <AppLayout>
+        <Wrapper>
+          <TouchableOpacity onPress={this.startVerification}>
+            <Text>Start verification</Text>
+          </TouchableOpacity>
+        </Wrapper>
+      </AppLayout>
     );
   }
 }
