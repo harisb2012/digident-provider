@@ -1,14 +1,71 @@
 import React from 'react';
 import { ScanFrontStep } from './ScanFrontStep';
+import { View } from 'react-native';
 import { AppLayout } from '../../components/Layout/AppLayout';
-import TestComponent from './TestComponent';
+import StepIndicator from 'react-native-step-indicator'
+import { stepIndicatorStyles } from './config/stepIndicatorStyles';
+import styled from 'styled-components/native';
+import { ViewPager } from 'rn-viewpager'
+import { ScanBackStep } from './ScanBackStep';
+import { DetailsStep } from './DetailsStep';
 
-export class VerificationScene extends React.PureComponent {
+const StepsIndicatorWrapper = styled.View`
+  padding: 10px;
+`;
+
+export class VerificationScene extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentStep: 0
+    };
+  }
+
+  get bottomStepsCounter() {
+    return (
+      <StepsIndicatorWrapper>
+        <StepIndicator
+          customStyles={stepIndicatorStyles}
+          currentPosition={this.state.currentStep}
+          stepCount={3}
+          labels={['Front', 'Back', 'Details']}
+        />
+      </StepsIndicatorWrapper>
+    )
+  }
+
+  get mainScreen() {
+    return (
+      <ViewPager
+        style={{ flexGrow: 1 }}
+        ref={viewPager => {
+          this.viewPager = viewPager
+        }}
+        onPageSelected={page => {
+          this.setState({ currentStep: page.position })
+        }}
+      >
+        <View>
+          <ScanFrontStep />
+        </View>
+
+        <View>
+          <ScanBackStep />
+        </View>
+
+        <View>
+          <DetailsStep />
+        </View>
+      </ViewPager>
+    )
+  }
+
   render() {
     return (
-      <AppLayout>
-        {/* <ScanFrontStep /> */}
-        <TestComponent />
+      <AppLayout
+        bottom={this.bottomStepsCounter}
+      >
+        {this.mainScreen}
       </AppLayout>
     );
   }
