@@ -4,6 +4,7 @@ import { iOSUIKit } from 'react-native-typography';
 import { VerificationLayout } from './components/VerificationLayout';
 import { DetailsForm } from './forms/DetailsForm';
 import styled from 'styled-components/native';
+import ButtonComponent from 'react-native-button-component';
 
 const FormWrapper = styled.View`
   background: white;
@@ -14,6 +15,10 @@ const FormWrapper = styled.View`
 const CenterWrapper = styled.View`
   justify-content: center;
   flex: 1;
+`;
+
+const ButtonWrapper = styled.View`
+  padding-top: 20;
 `;
 
 const customShadowStyle = {
@@ -44,6 +49,13 @@ export class DetailsStep extends React.PureComponent {
           <FormWrapper style={customShadowStyle}>
             <DetailsForm />
           </FormWrapper>
+
+          <ButtonWrapper>
+            <ButtonComponent
+              backgroundColors={['#03a49c', '#03a49c']}
+              text="Next"
+            />
+          </ButtonWrapper>
         </CenterWrapper>
       </VerificationLayout>
     )

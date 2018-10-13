@@ -3,17 +3,17 @@ export const stepIndicatorStyles = {
   currentStepIndicatorSize: 40,
   separatorStrokeWidth: 3,
   currentStepStrokeWidth: 5,
-  separatorFinishedColor: '#4aae4f',
-  separatorUnFinishedColor: '#a4d4a5',
-  stepIndicatorFinishedColor: '#4aae4f',
-  stepIndicatorUnFinishedColor: '#a4d4a5',
+  separatorFinishedColor: '#03a49c',
+  separatorUnFinishedColor: 'grey',
+  stepIndicatorFinishedColor: '#03a49c',
+  stepIndicatorUnFinishedColor: 'grey',
   stepIndicatorCurrentColor: '#ffffff',
   stepIndicatorLabelFontSize: 15,
   currentStepIndicatorLabelFontSize: 15,
   stepIndicatorLabelCurrentColor: '#000000',
   stepIndicatorLabelFinishedColor: '#ffffff',
   stepIndicatorLabelUnFinishedColor: 'rgba(255,255,255,0.5)',
-  labelColor: '#666666',
+  labelColor: 'white',
   labelSize: 12,
-  currentStepLabelColor: '#4aae4f'
+  currentStepLabelColor: 'white'
 }

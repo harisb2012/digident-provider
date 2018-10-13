@@ -8,6 +8,7 @@ import styled from 'styled-components/native';
 import { ViewPager } from 'rn-viewpager'
 import { ScanBackStep } from './ScanBackStep';
 import { DetailsStep } from './DetailsStep';
+import { SelfieStep } from './SelfieStep';
 
 const StepsIndicatorWrapper = styled.View`
   padding: 10px;
@@ -27,8 +28,8 @@ export class VerificationScene extends React.Component {
         <StepIndicator
           customStyles={stepIndicatorStyles}
           currentPosition={this.state.currentStep}
-          stepCount={3}
-          labels={['Front', 'Back', 'Details']}
+          stepCount={4}
+          labels={['Front', 'Back', 'Details', 'Selfie']}
         />
       </StepsIndicatorWrapper>
     )
@@ -55,6 +56,10 @@ export class VerificationScene extends React.Component {
 
         <View>
           <DetailsStep />
+        </View>
+
+        <View>
+          <SelfieStep />
         </View>
       </ViewPager>
     )
