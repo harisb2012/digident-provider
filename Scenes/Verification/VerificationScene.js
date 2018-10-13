@@ -11,7 +11,8 @@ import { DetailsStep } from './DetailsStep';
 import { SelfieStep } from './SelfieStep';
 
 const StepsIndicatorWrapper = styled.View`
-  padding: 10px;
+  padding: 15px;
+  margin-bottom: 15;
 `;
 
 export class VerificationScene extends React.Component {

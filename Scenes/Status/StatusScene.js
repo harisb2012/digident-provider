@@ -3,6 +3,9 @@ import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import * as routes from '../../navigation/routes';
 import { AppLayout } from '../../components/Layout/AppLayout';
+import { StatusLayout } from './StatusLayout';
+import { iOSUIKit } from 'react-native-typography';
+import { NotVerifiedStatus } from './components/NotVerifiedStatus';
 
 const Wrapper = styled.View`
   flex: 1;
@@ -10,24 +13,31 @@ const Wrapper = styled.View`
 
 const Text = styled.Text``;
 
+const DataWrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
 export class StatusScene extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.startVerification = this.startVerification.bind(this);
+  get isVerified() {
+    return false;
   }
 
-  startVerification() {
-    this.props.navigation.navigate(routes.VERIFICATION)
-  }
+  get verifiedContent() {}
 
   render() {
     return (
       <AppLayout>
-        <Wrapper>
-          <TouchableOpacity onPress={this.startVerification}>
-            <Text>Start verification</Text>
-          </TouchableOpacity>
-        </Wrapper>
+        <StatusLayout>
+          <Wrapper>
+            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Identity</Text>
+        
+            <DataWrapper>
+              <NotVerifiedStatus {...this.props} />
+            </DataWrapper>
+            
+          </Wrapper>
+        </StatusLayout>
       </AppLayout>
     );
   }
