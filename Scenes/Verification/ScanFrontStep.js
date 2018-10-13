@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { RNCamera } from 'react-native-camera';
 import { iOSUIKit } from 'react-native-typography';
 import styled from 'styled-components/native';
 import { VerificationLayout } from './components/VerificationLayout';
+import { ImageTaker } from './components/ImageTaker';
+import IdentityService from '../../Services/IdentityService';
 
 const CameraWrapper = styled.View`
   flex: 1;
@@ -27,22 +28,10 @@ export class ScanFrontStep extends React.Component {
         </Text>
 
         <CameraWrapper>
-          <RNCamera
-              ref={ref => {
-                this.camera = ref;
-              }}
-              style={{
-                flex: 1,
-                justifyContent: 'flex-end',
-                alignItems: 'center'
-              }}
-              type={RNCamera.Constants.Type.back}
-              flashMode={RNCamera.Constants.FlashMode.on}
-              permissionDialogTitle={'Permission to use camera'}
-              permissionDialogMessage={'We need your permission to use your camera phone'}
-              onGoogleVisionBarcodesDetected={({ barcodes }) => {
-                console.log(barcodes)
-              }}
+          <ImageTaker
+            getFromMemory={IdentityService.getFrontImage}
+            setToMemory={IdentityService.saveFrontImage}
+            onTaken={uri => IdentityService.saveFrontImage(uri)}
           />
         </CameraWrapper>
       </VerificationLayout>
