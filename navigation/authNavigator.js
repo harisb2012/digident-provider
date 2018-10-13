@@ -14,6 +14,7 @@ export default createStackNavigator(
   },
   {
     initialRouteName: routes.ONBOARDING,
-    mode: 'modal'
+    mode: 'modal',
+    headerMode: 'none'
   }
 )

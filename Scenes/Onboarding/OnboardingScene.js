@@ -1,11 +1,18 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
+import LinearGradient from 'react-native-linear-gradient'
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1
+  },
   image: {
     width: 320,
     height: 320
+  },
+  linearGradient: {
+    flex: 1
   }
 })
 
@@ -33,15 +40,35 @@ const slides = [
     // image: require('./assets/3.jpg'),
     imageStyle: styles.image,
     backgroundColor: '#22bcb5'
+  },
+  {
+    key: 'somethun2',
+    title: 'Rocket guy2',
+    text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
+    // image: require('./assets/3.jpg'),
+    imageStyle: styles.image,
+    backgroundColor: '#22bcb5'
   }
 ]
 
 export class OnboardingScene extends React.PureComponent {
-  _renderSlide() {}
+  _renderSlide({ width, height }) {
+    return (
+      <LinearGradient
+        colors={['#FC5B63', '#E22D5C']}
+        style={[styles.linearGradient, { width, height }]}
+      >
+        <SafeAreaView style={styles.wrapper}>
+          <Text style={styles.buttonText}>Sign in with Facebook</Text>
+        </SafeAreaView>
+      </LinearGradient>
+    )
+  }
 
   render() {
     return (
       <AppIntroSlider
+        showSkipButton
         slides={slides}
         renderItem={this._renderSlide}
         onDone={this._onDone}
