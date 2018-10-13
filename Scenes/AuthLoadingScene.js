@@ -5,7 +5,7 @@ import * as routes from '../navigation/routes'
 export class AuthLoadingScene extends React.Component {
   componentDidMount() {
     setTimeout(() => {
-      this.props.navigation.navigate(routes.ROOT_APP)
+      this.props.navigation.navigate(routes.ONBOARDING)
     }, 1000)
   }
 
