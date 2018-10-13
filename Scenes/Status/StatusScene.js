@@ -6,6 +6,7 @@ import { AppLayout } from '../../components/Layout/AppLayout'
 import { StatusLayout } from './StatusLayout'
 import { iOSUIKit } from 'react-native-typography'
 import { NotVerifiedStatus } from './components/NotVerifiedStatus'
+import { VerifiedStatus } from './components/VerifiedStatus'
 
 const Wrapper = styled.View`
   flex: 1;
@@ -23,7 +24,13 @@ export class StatusScene extends React.PureComponent {
     return false
   }
 
-  get verifiedContent() {}
+  get notVerifiedContent() {
+    return <NotVerifiedStatus {...this.props} />
+  }
+
+  get verifiedContent() {
+    return <VerifiedStatus {...this.props} />
+  }
 
   render() {
     return (
@@ -33,7 +40,7 @@ export class StatusScene extends React.PureComponent {
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>DigIDENT</Text>
 
             <DataWrapper>
-              <NotVerifiedStatus {...this.props} />
+              {this.isVerified ? this.verifiedContent : this.notVerifiedContent}
             </DataWrapper>
           </Wrapper>
         </StatusLayout>
