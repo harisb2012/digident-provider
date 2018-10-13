@@ -7,6 +7,7 @@ import { StatusLayout } from './StatusLayout'
 import { iOSUIKit } from 'react-native-typography'
 import { NotVerifiedStatus } from './components/NotVerifiedStatus'
 import { VerifiedStatus } from './components/VerifiedStatus'
+import * as Animatable from 'react-native-animatable'
 
 const Wrapper = styled.View`
   flex: 1;
@@ -36,13 +37,21 @@ export class StatusScene extends React.PureComponent {
     return (
       <AppLayout>
         <StatusLayout>
-          <Wrapper>
-            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>DigIDENT</Text>
+          <Animatable.View
+            animation="zoomInUp"
+            style={{ flex: 1 }}
+            useNativeDriver
+          >
+            <Wrapper>
+              <Text style={iOSUIKit.largeTitleEmphasizedWhite}>DigIDENT</Text>
 
-            <DataWrapper>
-              {this.isVerified ? this.verifiedContent : this.notVerifiedContent}
-            </DataWrapper>
-          </Wrapper>
+              <DataWrapper>
+                {this.isVerified
+                  ? this.verifiedContent
+                  : this.notVerifiedContent}
+              </DataWrapper>
+            </Wrapper>
+          </Animatable.View>
         </StatusLayout>
       </AppLayout>
     )

@@ -1,78 +1,121 @@
-import React from 'react';
-import { ScanFrontStep } from './ScanFrontStep';
-import { View } from 'react-native';
-import { AppLayout } from '../../components/Layout/AppLayout';
-import StepIndicator from 'react-native-step-indicator'
-import { stepIndicatorStyles } from './config/stepIndicatorStyles';
-import styled from 'styled-components/native';
-import { ViewPager } from 'rn-viewpager'
-import { ScanBackStep } from './ScanBackStep';
-import { DetailsStep } from './DetailsStep';
-import { SelfieStep } from './SelfieStep';
+import React from 'react'
+import { ScanFrontStep } from './ScanFrontStep'
+import { View, Animated } from 'react-native'
+import { AppLayout } from '../../components/Layout/AppLayout'
+import { stepIndicatorStyles } from './config/stepIndicatorStyles'
+import styled from 'styled-components/native'
+import { ScanBackStep } from './ScanBackStep'
+import { DetailsStep } from './DetailsStep'
+import { SelfieStep } from './SelfieStep'
+import { iOSUIKit } from 'react-native-typography'
+
+import { flatten } from 'lodash'
+
+import { TabView, TabBar, SceneMap, PagerScroll } from 'react-native-tab-view'
 
 const StepsIndicatorWrapper = styled.View`
   padding: 15px;
   margin-bottom: 15;
-`;
+`
+
+const styles = {
+  tabbar: {
+    backgroundColor: 'transparent'
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  indicator: {
+    width: 24,
+    height: 24,
+    borderRadius: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)'
+  }
+}
 
 export class VerificationScene extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      currentStep: 0
-    };
+      index: 0,
+      routes: [
+        { key: 'front', title: '1' },
+        { key: 'back', title: '2' },
+        { key: 'details', title: '3' },
+        { key: 'selfie', title: '4' }
+      ]
+    }
   }
 
-  get bottomStepsCounter() {
-    return (
-      <StepsIndicatorWrapper>
-        <StepIndicator
-          customStyles={stepIndicatorStyles}
-          currentPosition={this.state.currentStep}
-          stepCount={4}
-          labels={['Front', 'Back', 'Details', 'Selfie']}
-        />
-      </StepsIndicatorWrapper>
+  _handleIndexChange = index => {
+    this.setState({ index })
+  }
+
+  _renderScene = SceneMap({
+    front: ScanFrontStep,
+    back: ScanBackStep,
+    details: DetailsStep,
+    selfie: SelfieStep
+  })
+
+  _renderTabBar = props => (
+    <TabBar
+      {...props}
+      renderIndicator={this._renderIndicator}
+      labelStyle={iOSUIKit.bodyEmphasizedWhite}
+      style={styles.tabbar}
+    />
+  )
+
+  _renderIndicator = props => {
+    const { width, position } = props
+    const inputRange = flatten(
+      this.state.routes.map((_, i) => [
+        i,
+        i + 0.48,
+        i + 0.49,
+        i + 0.51,
+        i + 0.52
+      ])
     )
-  }
 
-  get mainScreen() {
+    const scale = position.interpolate({
+      inputRange,
+      outputRange: inputRange.map(x => (Math.trunc(x) === x ? 2 : 0.1))
+    })
+
+    const translateX = position.interpolate({
+      inputRange: inputRange,
+      outputRange: inputRange.map(x => Math.round(x) * width)
+    })
+
     return (
-      <ViewPager
-        style={{ flexGrow: 1 }}
-        ref={viewPager => {
-          this.viewPager = viewPager
-        }}
-        onPageSelected={page => {
-          this.setState({ currentStep: page.position })
-        }}
+      <Animated.View
+        style={[styles.container, { width, transform: [{ translateX }] }]}
       >
-        <View>
-          <ScanFrontStep />
-        </View>
-
-        <View>
-          <ScanBackStep />
-        </View>
-
-        <View>
-          <DetailsStep />
-        </View>
-
-        <View>
-          <SelfieStep />
-        </View>
-      </ViewPager>
+        <Animated.View style={[styles.indicator, { transform: [{ scale }] }]} />
+      </Animated.View>
     )
   }
+
+  _renderPager = props => <PagerScroll swipeEnabled={false} {...props} />
 
   render() {
     return (
-      <AppLayout
-        bottom={this.bottomStepsCounter}
-      >
-        {this.mainScreen}
+      <AppLayout>
+        <TabView
+          scrollEnabled={false}
+          style={{ flex: 1 }}
+          navigationState={this.state}
+          renderScene={this._renderScene}
+          renderTabBar={this._renderTabBar}
+          renderPager={this._renderPager}
+          onIndexChange={this._handleIndexChange}
+          tabBarPosition="bottom"
+        />
       </AppLayout>
-    );
+    )
   }
 }

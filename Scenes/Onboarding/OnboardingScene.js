@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, Image } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import LinearGradient from 'react-native-linear-gradient'
 import { iOSUIKit } from 'react-native-typography'
+import * as Animatable from 'react-native-animatable'
 
 import * as routes from '../../navigation/routes'
 
@@ -61,7 +62,13 @@ export class OnboardingScene extends React.PureComponent {
   _renderSlide({ width, image, text }) {
     return (
       <View style={[styles.stepWrap, { width }]}>
-        <Image source={image} style={styles.image} resizeMode="contain" />
+        <Animatable.Image
+          animation="bounceInLeft"
+          source={image}
+          style={styles.image}
+          resizeMode="contain"
+          useNativeDriver
+        />
         <Text style={[iOSUIKit.bodyEmphasizedWhite, styles.textHeadline]}>
           {text}
         </Text>
@@ -89,6 +96,7 @@ export class OnboardingScene extends React.PureComponent {
             slides={slides}
             renderItem={this._renderSlide}
             onDone={this._onDone}
+            onSkip={this._onDone}
           />
         </SafeAreaView>
       </LinearGradient>
