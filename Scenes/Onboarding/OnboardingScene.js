@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 })
 
 const slides = [
+  // {key: 'checklist', text: 'You provide personal documents to DigIDENT', image: require('')},
   {
     key: 'somethun',
     title: 'Title 1',
