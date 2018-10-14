@@ -33,33 +33,45 @@ const FormWrapper = styled.View`
 
 const imageStyles = { flex: 1, width: 100, height: 100, marginTop: 30 }
 
-export class SubmitStep extends React.Component {
+export class SubmitStep extends React.PureComponent {
+  generateAddress({ city, zip, address, country }) {
+    return `${address}, ${city}, ${zip}, ${country}`
+  }
+
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ finalise }) => (
+        {({ finalise, userDetails, frontImage, backImage, selfie }) => (
           <VerificationLayout>
-            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Awesome!</Text>
+            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>All done!</Text>
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
-              You have been successfully verified. Please review your data
-              before sending it to digi.me
+              We have everything, just review once more before sending it over
+              and saving to digi.me
             </Text>
 
             <ContentWrapper>
-              <ImagesWrapper>
-                <Image
-                  source={require('../Onboarding/illustrations/selfie.png')}
-                  style={imageStyles}
-                />
-                <Image
-                  source={require('../Onboarding/illustrations/selfie.png')}
-                  style={imageStyles}
-                />
-                <Image
-                  source={require('../Onboarding/illustrations/selfie.png')}
-                  style={imageStyles}
-                />
-              </ImagesWrapper>
+              {frontImage && backImage && selfie ? (
+                <ImagesWrapper>
+                  <Image
+                    source={{
+                      uri: frontImage
+                    }}
+                    style={imageStyles}
+                  />
+                  <Image
+                    source={{
+                      uri: backImage
+                    }}
+                    style={imageStyles}
+                  />
+                  <Image
+                    source={{
+                      uri: selfie
+                    }}
+                    style={imageStyles}
+                  />
+                </ImagesWrapper>
+              ) : null}
 
               <Formik
                 ref={formik => {
@@ -71,19 +83,19 @@ export class SubmitStep extends React.Component {
                     <TextField
                       label="First Name"
                       editable={false}
-                      value="Test"
+                      value={userDetails.firstName}
                     />
 
                     <TextField
                       label="Last Name"
                       editable={false}
-                      value="Test"
+                      value={userDetails.lastName}
                     />
 
                     <TextField
                       label="Address, City, Zip Code, Country"
                       editable={false}
-                      value="Test"
+                      value={this.generateAddress(userDetails)}
                     />
                   </FormWrapper>
                 )}

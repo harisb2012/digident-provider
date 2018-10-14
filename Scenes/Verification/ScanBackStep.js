@@ -1,42 +1,24 @@
 import React from 'react'
 import { Text } from 'react-native'
-import { RNCamera } from 'react-native-camera'
-import { iOSUIKit } from 'react-native-typography'
+import { iOSUIKit, human } from 'react-native-typography'
 import styled from 'styled-components/native'
-import { VerificationLayout } from './components/VerificationLayout'
-import IdentityService from '../../Services/IdentityService'
-import { VerificationContext } from './config/VerificationContext'
-import { ImageTaker } from './components/ImageTaker'
 import Button from '../../components/Button'
-
-const CameraWrapper = styled.View`
-  flex: 1;
-  padding-top: 30;
-  max-height: 60%;
-`
+import { ImageTaker } from './components/ImageTaker'
+import { VerificationLayout } from './components/VerificationLayout'
+import { VerificationContext } from './config/VerificationContext'
+import { ButtonWrapper } from './components/ButtonWrapper'
+import { CameraWrapper } from './components/CameraWrapper'
 
 const ContentWrapper = styled.View`
   flex: 1;
   flex-direction: column;
 `
 
-const ButtonWrapper = styled.View`
-  flex: 1;
-  justify-content: flex-end;
-`
-
-export class ScanBackStep extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      hasImage: false
-    }
-  }
-
+export class ScanBackStep extends React.PureComponent {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ goToNextStep }) => (
+        {({ goToNextStep, backImage, setBackImage }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Scan Back</Text>
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
@@ -49,19 +31,24 @@ export class ScanBackStep extends React.Component {
                   ref={imageTaker => {
                     this.imageTaker = imageTaker
                   }}
-                  getFromMemory={IdentityService.getBackImage}
-                  setToMemory={IdentityService.saveBackImage}
-                  onTaken={uri => {
-                    this.setState({ hasImage: true })
-                  }}
+                  value={backImage}
+                  onTaken={uri => setBackImage(uri)}
                 />
               </CameraWrapper>
 
-              {this.state.hasImage && (
-                <ButtonWrapper>
-                  <Button onPress={goToNextStep}>Next</Button>
-                </ButtonWrapper>
-              )}
+              <ButtonWrapper>
+                <Text style={human.body}>
+                  Is the whole back of the document easily readable?
+                </Text>
+
+                <Button
+                  style={{ marginTop: 20 }}
+                  disabled={!backImage}
+                  onPress={goToNextStep}
+                >
+                  Yeah, it's great!
+                </Button>
+              </ButtonWrapper>
             </ContentWrapper>
           </VerificationLayout>
         )}

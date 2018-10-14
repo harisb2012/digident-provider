@@ -29,46 +29,19 @@ const styles = StyleSheet.create({
   }
 })
 
-export class ImageTaker extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      imageUri: null
-    }
-  }
-
-  get hasImage() {
-    return this.state.imageUri
-  }
-
-  componentDidMount() {
-    this.props.getFromMemory().then(value => {
-      this.setState({
-        imageUri: value
-      })
-    })
-  }
-
+export class ImageTaker extends React.PureComponent {
   retake() {
-    this.props.setToMemory('')
-    this.setState({
-      imageUri: ''
-    })
+    this.props.onTaken('');
   }
 
   takePicture = async camera => {
     const options = { quality: 0.5, base64: true }
     const data = await camera.takePictureAsync(options)
     this.props.onTaken(data.uri)
-    this.props.setToMemory(data.uri)
-
-    this.setState({
-      imageUri: data.uri
-    })
   }
 
   render() {
-    const uri = this.state.imageUri
+    const uri = this.props.value;
 
     if (uri) {
       return (
@@ -127,12 +100,10 @@ export class ImageTaker extends React.Component {
 
 ImageTaker.propTypes = {
   onTaken: PropTypes.func,
-  storageKey: PropTypes.string,
-  getFromMemory: PropTypes.func.isRequired,
-  setToMemory: PropTypes.func.isRequired
+  value: PropTypes.any
 }
 
 ImageTaker.defaultProps = {
   onTaken: () => {},
-  storageKey: ''
+  value: ''
 }

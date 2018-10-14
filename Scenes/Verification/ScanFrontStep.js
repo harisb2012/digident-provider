@@ -1,41 +1,25 @@
 import React from 'react'
 import { Text } from 'react-native'
-import { iOSUIKit } from 'react-native-typography'
+import { iOSUIKit, human } from 'react-native-typography'
 import styled from 'styled-components/native'
-import { VerificationLayout } from './components/VerificationLayout'
-import { ImageTaker } from './components/ImageTaker'
-import IdentityService from '../../Services/IdentityService'
 import Button from '../../components/Button'
+import { ImageTaker } from './components/ImageTaker'
+import { VerificationLayout } from './components/VerificationLayout'
+import { ButtonWrapper } from './components/ButtonWrapper'
+import { CameraWrapper } from './components/CameraWrapper'
 import { VerificationContext } from './config/VerificationContext'
-
-const CameraWrapper = styled.View`
-  flex: 1;
-  padding-top: 30;
-  max-height: 60%;
-`
+import * as Animatable from 'react-native-animatable'
 
 const ContentWrapper = styled.View`
   flex: 1;
   flex-direction: column;
 `
 
-const ButtonWrapper = styled.View`
-  flex: 1;
-  justify-content: flex-end;
-`
-
-export class ScanFrontStep extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      hasImage: false
-    }
-  }
-
+export class ScanFrontStep extends React.PureComponent {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ goToNextStep }) => (
+        {({ goToNextStep, frontImage, setFrontImage }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Scan Front</Text>
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
@@ -43,22 +27,37 @@ export class ScanFrontStep extends React.Component {
             </Text>
 
             <ContentWrapper>
-              <CameraWrapper>
-                <ImageTaker
-                  ref={imageTaker => {
-                    this.imageTaker = imageTaker
-                  }}
-                  getFromMemory={IdentityService.getFrontImage}
-                  setToMemory={IdentityService.saveFrontImage}
-                  onTaken={uri => this.setState({ hasImage: true })}
-                />
-              </CameraWrapper>
+              <Animatable.View
+                animation="zoomInUp"
+                style={{ flex: 1 }}
+                useNativeDriver
+              >
+                <CameraWrapper>
+                  <ImageTaker
+                    ref={imageTaker => {
+                      this.imageTaker = imageTaker
+                    }}
+                    value={frontImage}
+                    onTaken={uri => {
+                      setFrontImage(uri)
+                    }}
+                  />
+                </CameraWrapper>
 
-              {this.state.hasImage && (
                 <ButtonWrapper>
-                  <Button onPress={goToNextStep}>Next</Button>
+                  <Text style={human.body}>
+                    Is the whole front of the document easily readable?
+                  </Text>
+
+                  <Button
+                    style={{ marginTop: 20 }}
+                    disabled={!frontImage}
+                    onPress={goToNextStep}
+                  >
+                    Yes, let's proceed
+                  </Button>
                 </ButtonWrapper>
-              )}
+              </Animatable.View>
             </ContentWrapper>
           </VerificationLayout>
         )}
