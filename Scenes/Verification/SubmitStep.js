@@ -111,7 +111,13 @@ export class SubmitStep extends React.PureComponent {
                   through this hassle again!
                 </Text>
 
-                <Button style={{ marginTop: 20 }} onPress={finalise}>
+                <Image
+                  resizeMode="contain"
+                  style={{ height: 50, alignSelf: 'center', marginTop: 10 }}
+                  source={require('./images/digime.png')}
+                />
+
+                <Button style={{ marginTop: 10 }} onPress={finalise}>
                   Let's get this over with!
                 </Button>
               </ButtonWrapper>
