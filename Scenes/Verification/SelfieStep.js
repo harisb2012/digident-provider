@@ -25,39 +25,29 @@ const ButtonWrapper = styled.View`
   justify-content: flex-end;
 `;
 
-export class SelfieStep extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hasImage: false
-    };
-  }
-
+export class SelfieStep extends React.PureComponent {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ goToNextStep }) => (
+        {({ goToNextStep, selfie, setSelfie, userDetails }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Take a Selfie With ID Document</Text>
             <Text
               style={iOSUIKit.subheadEmphasizedWhite}
             >
-              Place it right next to your head
+              Place it right next to your head {JSON.stringify(userDetails)}
             </Text>
 
             <ContentWrapper>
               <CameraWrapper>
                 <ImageTaker
                   ref={imageTaker => { this.imageTaker = imageTaker }}
-                  getFromMemory={IdentityService.getSelfie}
-                  setToMemory={IdentityService.saveSelfie}
-                  onTaken={uri => {
-                    this.setState({ hasImage: true });
-                  }}
+                  value={selfie}
+                  onTaken={uri => setSelfie(uri)}
                 />
               </CameraWrapper>
 
-              {this.state.hasImage && (
+              {!!selfie && (
                 <ButtonWrapper>
                   <Button onPress={goToNextStep}>Finish</Button>
                 </ButtonWrapper>

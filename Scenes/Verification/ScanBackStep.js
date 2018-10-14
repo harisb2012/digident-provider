@@ -1,13 +1,11 @@
-import React from 'react'
-import { Text } from 'react-native'
-import { RNCamera } from 'react-native-camera'
-import { iOSUIKit } from 'react-native-typography'
-import styled from 'styled-components/native'
-import { VerificationLayout } from './components/VerificationLayout'
-import IdentityService from '../../Services/IdentityService'
-import { VerificationContext } from './config/VerificationContext'
-import { ImageTaker } from './components/ImageTaker'
-import Button from '../../components/Button'
+import React from 'react';
+import { Text } from 'react-native';
+import { iOSUIKit } from 'react-native-typography';
+import styled from 'styled-components/native';
+import Button from '../../components/Button';
+import { ImageTaker } from './components/ImageTaker';
+import { VerificationLayout } from './components/VerificationLayout';
+import { VerificationContext } from './config/VerificationContext';
 
 const CameraWrapper = styled.View`
   flex: 1;
@@ -25,18 +23,11 @@ const ButtonWrapper = styled.View`
   justify-content: flex-end;
 `
 
-export class ScanBackStep extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      hasImage: false
-    }
-  }
-
+export class ScanBackStep extends React.PureComponent {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ goToNextStep }) => (
+        {({ goToNextStep, backImage, setBackImage }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Scan Back</Text>
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
@@ -49,15 +40,12 @@ export class ScanBackStep extends React.Component {
                   ref={imageTaker => {
                     this.imageTaker = imageTaker
                   }}
-                  getFromMemory={IdentityService.getBackImage}
-                  setToMemory={IdentityService.saveBackImage}
-                  onTaken={uri => {
-                    this.setState({ hasImage: true })
-                  }}
+                  value={backImage}
+                  onTaken={uri => setBackImage(uri)}
                 />
               </CameraWrapper>
 
-              {this.state.hasImage && (
+              {!!backImage && (
                 <ButtonWrapper>
                   <Button onPress={goToNextStep}>Next</Button>
                 </ButtonWrapper>

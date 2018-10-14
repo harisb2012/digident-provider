@@ -34,7 +34,7 @@ export class DetailsStep extends React.PureComponent {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ goToNextStep }) => (
+        {({ goToNextStep, userDetails, setUserDetails }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Personal Details</Text>
 
@@ -48,8 +48,9 @@ export class DetailsStep extends React.PureComponent {
                   ref={form => {
                     this.form = form;
                   }}
+                  initialValue={userDetails}
                   onSubmit={(values) => {
-                    IdentityService.saveUserDetails(values);
+                    setUserDetails(values);
                     goToNextStep();
                   }}
                 />
