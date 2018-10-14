@@ -29,37 +29,19 @@ const styles = StyleSheet.create({
   }
 })
 
-export class ImageTaker extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      imageUri: this.props.value
-    }
-  }
-
-  get hasImage() {
-    return this.state.imageUri
-  }
-
+export class ImageTaker extends React.PureComponent {
   retake() {
     this.props.onTaken('');
-    this.setState({
-      imageUri: ''
-    });
   }
 
   takePicture = async camera => {
     const options = { quality: 0.5, base64: true }
     const data = await camera.takePictureAsync(options)
     this.props.onTaken(data.uri)
-
-    this.setState({
-      imageUri: data.uri
-    })
   }
 
   render() {
-    const uri = this.state.imageUri
+    const uri = this.props.value;
 
     if (uri) {
       return (
