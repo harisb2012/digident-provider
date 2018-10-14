@@ -24,10 +24,18 @@ const FormWrapper = styled.View`
   background: white;
   border-radius: 15;
   padding: 10px 20px;
-  margin-top: 20px;
 `
 
-const imageStyles = { flex: 1, width: 100, height: 100, marginTop: 30 }
+const imageStyles = {
+  flex: 1,
+  width: 100,
+  height: 100,
+  marginTop: 30,
+  borderRadius: 15,
+  borderWidth: 2,
+  borderColor: '#fff',
+  marginRight: 10
+}
 
 export class SubmitStep extends React.PureComponent {
   generateAddress({ city, zip, address, country }) {
