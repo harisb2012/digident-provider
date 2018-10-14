@@ -33,7 +33,7 @@ export class ImageTaker extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      imageUri: null
+      imageUri: this.props.value
     }
   }
 
@@ -41,26 +41,17 @@ export class ImageTaker extends React.Component {
     return this.state.imageUri
   }
 
-  componentDidMount() {
-    this.props.getFromMemory().then(value => {
-      this.setState({
-        imageUri: value
-      })
-    })
-  }
-
   retake() {
-    this.props.setToMemory('')
+    this.props.onTaken('');
     this.setState({
       imageUri: ''
-    })
+    });
   }
 
   takePicture = async camera => {
     const options = { quality: 0.5, base64: true }
     const data = await camera.takePictureAsync(options)
     this.props.onTaken(data.uri)
-    this.props.setToMemory(data.uri)
 
     this.setState({
       imageUri: data.uri
@@ -127,12 +118,10 @@ export class ImageTaker extends React.Component {
 
 ImageTaker.propTypes = {
   onTaken: PropTypes.func,
-  storageKey: PropTypes.string,
-  getFromMemory: PropTypes.func.isRequired,
-  setToMemory: PropTypes.func.isRequired
+  value: PropTypes.any
 }
 
 ImageTaker.defaultProps = {
   onTaken: () => {},
-  storageKey: ''
+  value: ''
 }

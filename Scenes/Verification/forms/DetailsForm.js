@@ -16,6 +16,7 @@ export class DetailsForm extends React.Component {
   render() {
     return (
       <Formik
+        initialValues={this.props.initialValues}
         ref={formik => {
           this.formik = formik;
         }}
@@ -62,5 +63,10 @@ export class DetailsForm extends React.Component {
 }
 
 DetailsForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  initialValues: PropTypes.object
+};
+
+DetailsForm.defaultProps = {
+  initialValues: {}
 };

@@ -12,6 +12,7 @@ import { flatten } from 'lodash'
 
 import { TabView, TabBar, SceneMap, PagerScroll } from 'react-native-tab-view'
 import { VerificationContext } from './config/VerificationContext'
+import { VerificationFormsDataContext } from './components/VerificationFormsDataContext';
 
 const styles = {
   tabbar: {
@@ -114,8 +115,9 @@ export class VerificationScene extends React.Component {
   render() {
     return (
       <AppLayout>
-        <VerificationContext.Provider
-          value={{ goToNextStep: this._goToNext, finalise: this._finalise }}
+        <VerificationFormsDataContext
+          goToNextStep={this._goToNext}
+          finalise={this._finalise}
         >
           <TabView
             scrollEnabled={false}
@@ -127,7 +129,7 @@ export class VerificationScene extends React.Component {
             onIndexChange={this._handleIndexChange}
             tabBarPosition="bottom"
           />
-        </VerificationContext.Provider>
+        </VerificationFormsDataContext>
       </AppLayout>
     )
   }

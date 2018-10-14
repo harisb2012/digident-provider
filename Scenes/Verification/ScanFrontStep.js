@@ -1,12 +1,11 @@
-import React from 'react'
-import { Text } from 'react-native'
-import { iOSUIKit, human } from 'react-native-typography'
-import styled from 'styled-components/native'
-import { VerificationLayout } from './components/VerificationLayout'
-import { ImageTaker } from './components/ImageTaker'
-import IdentityService from '../../Services/IdentityService'
-import Button from '../../components/Button'
-import { VerificationContext } from './config/VerificationContext'
+import React from 'react';
+import { Text } from 'react-native';
+import { iOSUIKit, human } from 'react-native-typography';
+import styled from 'styled-components/native';
+import Button from '../../components/Button';
+import { ImageTaker } from './components/ImageTaker';
+import { VerificationLayout } from './components/VerificationLayout';
+import { VerificationContext } from './config/VerificationContext';
 
 const ContentWrapper = styled.View`
   flex: 1;
@@ -31,18 +30,11 @@ const ButtonWrapper = styled.View`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `
 
-export class ScanFrontStep extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      hasImage: false
-    }
-  }
-
+export class ScanFrontStep extends React.PureComponent {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ goToNextStep }) => (
+        {({ goToNextStep, frontImage, setFrontImage }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Scan Front</Text>
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
@@ -55,9 +47,10 @@ export class ScanFrontStep extends React.Component {
                   ref={imageTaker => {
                     this.imageTaker = imageTaker
                   }}
-                  getFromMemory={IdentityService.getFrontImage}
-                  setToMemory={IdentityService.saveFrontImage}
-                  onTaken={uri => this.setState({ hasImage: true })}
+                  value={frontImage}
+                  onTaken={uri => {
+                    setFrontImage(uri);
+                  }}
                 />
               </CameraWrapper>
 
@@ -68,7 +61,7 @@ export class ScanFrontStep extends React.Component {
 
                 <Button
                   style={{ marginTop: 20 }}
-                  disabled={!this.state.hasImage}
+                  disabled={!frontImage}
                   onPress={goToNextStep}
                 >
                   Yes, let's proceed
