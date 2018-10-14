@@ -8,17 +8,11 @@ import Button from '../../components/Button'
 import { customShadowStyle } from '../../properties/customShadowStyle'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { VerificationContext } from './config/VerificationContext'
-import IdentityService from '../../Services/IdentityService'
 
 const FormWrapper = styled.View`
   background: white;
   border-radius: 15;
   padding: 10px 20px;
-`
-
-const CenterWrapper = styled.View`
-  justify-content: center;
-  flex: 1;
 `
 
 const ButtonWrapper = styled.View`

@@ -1,163 +1,83 @@
-import React, { Component } from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-  ImageBackground,
-  Dimensions,
-  LayoutAnimation,
-  KeyboardAvoidingView
-} from 'react-native'
-import { TextField } from 'react-native-material-textfield'
-import { Button } from 'react-native-elements'
+import React from 'react';
+import { Text, View } from 'react-native';
+import styled from 'styled-components/native';
+import { AppLayout } from '../../components/Layout/AppLayout';
+import { iOSUIKit } from 'react-native-typography';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Formik } from 'formik';
+import { customShadowStyle } from '../../properties/customShadowStyle';
+import { TextField } from 'react-native-material-textfield';
+import Button from '../../components/Button';
 
-const SCREEN_WIDTH = Dimensions.get('window').width
-const SCREEN_HEIGHT = Dimensions.get('window').height
+const LoginLayout = styled.View`
+  flex: 1;
+  padding: 20px;
+`;
 
-const BG_IMAGE = require('./login_background.jpg')
-
-const TabSelector = ({ selected }) => {
-  return (
-    <View style={styles.selectorContainer}>
-      <View style={selected && styles.selected} />
-    </View>
-  )
+const contentContainerStyle = {
+  flexGrow: 1,
+  justifyContent: 'center'
 }
 
-export class LoginScene extends Component {
-  constructor(props) {
-    super(props)
-    this.login = this.login.bind(this)
-  }
+const FormWrapper = styled.View`
+  background: white;
+  border-radius: 15;
+  padding: 10px 20px;
+  flex: 1;
+`
 
+const ButtonWrapper = styled.View`
+  margin: 10px 0;
+`
 
-  validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return re.test(email)
-  }
-
-  login() {
-    setTimeout(() => {
-      LayoutAnimation.easeInEaseOut()
-    }, 1500)
-  }
-
+export class LoginScene extends React.PureComponent {
   render() {
     return (
-      <View style={styles.container}>
-        <ImageBackground source={BG_IMAGE} style={styles.bgImage}>
-          <View>
-            <KeyboardAvoidingView
-              contentContainerStyle={styles.loginContainer}
-              behavior="position"
+      <AppLayout>
+        <LoginLayout>
+          <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Login</Text>
+          <Text style={iOSUIKit.subheadEmphasizedWhite}>
+            Log in to begin you identification journey!
+          </Text>
+
+          <KeyboardAwareScrollView
+            contentContainerStyle={{contentContainerStyle}}
+          >
+            <FormWrapper
+              style={customShadowStyle}
             >
-              <View style={styles.titleContainer}>
-                <View style={{ flexDirection: 'row' }}>
-                  <Text style={styles.titleText}>Welcome to digIDENT</Text>
-                </View>
-              </View>
+              <Formik
 
-              <View style={styles.formWrapper}>
-                <TextField label="Email" autoCapitalize={false} />
-                <TextField
-                  label="Password"
-                  secureTextEntry={true}
-                  autoCapitalize={false}
-                />
-              </View>
+              >
+                {({ handleChange, handleSubmit, values }) => (
+                  <View>
+                    <TextField
+                      label='Email'
+                      onChangeText={handleChange('email')}
+                    />
 
-              <Button
-                buttonStyle={styles.loginButton}
-                containerStyle={{ marginTop: 32, flex: 0 }}
-                activeOpacity={0.8}
-                title={'LOGIN'}
-                onPress={this.login}
-                titleStyle={styles.loginTextButton}
-              />
-            </KeyboardAvoidingView>
-          </View>
-        </ImageBackground>
-      </View>
+                    <TextField
+                      label='Password'
+                      secureTextEntry
+                      onChangeText={handleChange('password')}
+                    />
+
+                    <ButtonWrapper>
+                      <Button
+                        onPress={() => {
+                          this.form.submit()
+                        }}
+                      >
+                        Continue
+                      </Button>
+                    </ButtonWrapper>
+                  </View>
+                )}
+              </Formik>
+            </FormWrapper>
+          </KeyboardAwareScrollView>
+        </LoginLayout>
+      </AppLayout>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  rowSelector: {
-    height: 20,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  selectorContainer: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  selected: {
-    position: 'absolute',
-    borderRadius: 50,
-    height: 0,
-    width: 0,
-    top: -5,
-    borderRightWidth: 70,
-    borderBottomWidth: 70,
-    borderColor: 'white',
-    backgroundColor: 'white'
-  },
-  loginContainer: {
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  loginTextButton: {
-    fontSize: 16,
-    color: 'white',
-    fontWeight: 'bold'
-  },
-  loginButton: {
-    backgroundColor: 'rgba(232, 147, 142, 1)',
-    borderRadius: 10,
-    height: 50,
-    width: 200
-  },
-  titleContainer: {
-    height: 150,
-    backgroundColor: 'transparent',
-    justifyContent: 'center'
-  },
-  loginText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white'
-  },
-  bgImage: {
-    flex: 1,
-    top: 0,
-    left: 0,
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  categoryText: {
-    textAlign: 'center',
-    color: 'white',
-    fontSize: 24,
-    fontFamily: 'light',
-    backgroundColor: 'transparent',
-    opacity: 0.54
-  },
-  titleText: {
-    color: 'white',
-    fontSize: 30
-  },
-  formWrapper: {
-    paddingTop: 30,
-    paddingBottom: 50,
-    paddingHorizontal: 50,
-    marginBottom: 15,
-    width: SCREEN_WIDTH - 30,
-    backgroundColor: '#fff'
-  }
-})
