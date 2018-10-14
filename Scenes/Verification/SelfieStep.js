@@ -20,7 +20,7 @@ export class SelfieStep extends React.PureComponent {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ goToNextStep, selfie, setSelfie, userDetails }) => (
+        {({ goToNextStep, selfie, index, setSelfie, userDetails }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>
               Take a Selfie With ID Document
@@ -32,9 +32,11 @@ export class SelfieStep extends React.PureComponent {
             <ContentWrapper>
               <CameraWrapper>
                 <ImageTaker
+                  isSelfie
                   ref={imageTaker => {
                     this.imageTaker = imageTaker
                   }}
+                  isActive={index === 3}
                   value={selfie}
                   onTaken={uri => setSelfie(uri)}
                 />

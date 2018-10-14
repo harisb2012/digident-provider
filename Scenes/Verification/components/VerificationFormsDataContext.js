@@ -44,7 +44,7 @@ export class VerificationFormsDataContext extends React.Component {
     IdentityService.saveSelfie(value);
     this.setState({
       selfie: value
-    });
+    }); 
   }
 
   setUserDetails(value) {
@@ -61,6 +61,7 @@ export class VerificationFormsDataContext extends React.Component {
     return (
       <VerificationContext.Provider value={{
         ...this.state,
+        index: this.props.index,
         goToNextStep: this.props.goToNextStep,
         finalise: this.props.finalise,
         setFrontImage: this.setFrontImage,
@@ -77,5 +78,6 @@ export class VerificationFormsDataContext extends React.Component {
 VerificationFormsDataContext.propTypes = {
   goToNextStep: PropTypes.func.isRequired,
   finalise: PropTypes.func.isRequired,
-  children: PropTypes.any.isRequired
+  children: PropTypes.any.isRequired,
+  index: PropTypes.number.isRequired
 };

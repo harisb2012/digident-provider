@@ -18,7 +18,7 @@ export class ScanBackStep extends React.PureComponent {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ goToNextStep, backImage, setBackImage }) => (
+        {({ goToNextStep, backImage, index, setBackImage }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Scan Back</Text>
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
@@ -31,6 +31,7 @@ export class ScanBackStep extends React.PureComponent {
                   ref={imageTaker => {
                     this.imageTaker = imageTaker
                   }}
+                  isActive={index === 1}
                   value={backImage}
                   onTaken={uri => setBackImage(uri)}
                 />

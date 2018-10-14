@@ -42,6 +42,7 @@ export class ImageTaker extends React.PureComponent {
 
   render() {
     const uri = this.props.value;
+    if (!this.props.isActive) return null;
 
     if (uri) {
       return (
@@ -65,6 +66,8 @@ export class ImageTaker extends React.PureComponent {
       )
     }
 
+    const type = this.props.isSelfie ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back;
+
     return (
       <Container>
         <RNCamera
@@ -72,7 +75,7 @@ export class ImageTaker extends React.PureComponent {
             this.camera = ref
           }}
           style={styles.preview}
-          type={RNCamera.Constants.Type.back}
+          type={type}
           flashMode={RNCamera.Constants.FlashMode.on}
           permissionDialogTitle={'Permission to use camera'}
           permissionDialogMessage={
@@ -100,10 +103,14 @@ export class ImageTaker extends React.PureComponent {
 
 ImageTaker.propTypes = {
   onTaken: PropTypes.func,
-  value: PropTypes.any
+  value: PropTypes.any,
+  isActive: PropTypes.bool,
+  isSelfie: PropTypes.bool
 }
 
 ImageTaker.defaultProps = {
   onTaken: () => {},
-  value: ''
+  value: '',
+  isActive: false,
+  isSelfie: false
 }

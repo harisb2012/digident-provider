@@ -119,6 +119,7 @@ export class VerificationScene extends React.Component {
         <VerificationFormsDataContext
           goToNextStep={this._goToNext}
           finalise={this._finalise}
+          index={this.state.index}
         >
           <TabView
             scrollEnabled={false}

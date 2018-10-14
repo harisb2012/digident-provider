@@ -19,7 +19,7 @@ export class ScanFrontStep extends React.PureComponent {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ goToNextStep, frontImage, setFrontImage }) => (
+        {({ goToNextStep, index, frontImage, setFrontImage }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Scan Front</Text>
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
@@ -37,6 +37,7 @@ export class ScanFrontStep extends React.PureComponent {
                     ref={imageTaker => {
                       this.imageTaker = imageTaker
                     }}
+                    isActive={index === 0}
                     value={frontImage}
                     onTaken={uri => {
                       setFrontImage(uri)

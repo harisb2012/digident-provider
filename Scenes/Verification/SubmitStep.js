@@ -4,7 +4,6 @@ import { iOSUIKit, human } from 'react-native-typography'
 import { TextField } from 'react-native-material-textfield'
 import { VerificationLayout } from './components/VerificationLayout'
 import styled from 'styled-components/native'
-import { Formik } from 'formik'
 import { VerificationContext } from './config/VerificationContext'
 import Button from '../../components/Button'
 import { customShadowStyle } from '../../properties/customShadowStyle'
@@ -16,7 +15,6 @@ const ContentWrapper = styled.View`
 `
 
 const ImagesWrapper = styled.View`
-  flex: 1;
   flex-direction: row;
 `
 
@@ -24,6 +22,8 @@ const FormWrapper = styled.View`
   background: white;
   border-radius: 15;
   padding: 10px 20px;
+  padding-top: 20;
+  padding-bottom: 20;
 `
 
 const imageStyles = {
@@ -34,7 +34,8 @@ const imageStyles = {
   borderRadius: 15,
   borderWidth: 2,
   borderColor: '#fff',
-  marginRight: 10
+  marginRight: 10,
+  marginBottom: 20
 }
 
 export class SubmitStep extends React.PureComponent {
@@ -77,33 +78,15 @@ export class SubmitStep extends React.PureComponent {
                 </ImagesWrapper>
               ) : null}
 
-              <Formik
-                ref={formik => {
-                  this.formik = formik
-                }}
-              >
-                {({ handleChange, handleSubmit, values }) => (
-                  <FormWrapper style={customShadowStyle}>
-                    <TextField
-                      label="First Name"
-                      editable={false}
-                      value={userDetails.firstName}
-                    />
+              <FormWrapper style={customShadowStyle}>
+                <Text style={iOSUIKit.subheadEmphasized}>
+                  {userDetails.firstName} {userDetails.lastName}
+                </Text>
 
-                    <TextField
-                      label="Last Name"
-                      editable={false}
-                      value={userDetails.lastName}
-                    />
-
-                    <TextField
-                      label="Address, City, Zip Code, Country"
-                      editable={false}
-                      value={this.generateAddress(userDetails)}
-                    />
-                  </FormWrapper>
-                )}
-              </Formik>
+                <Text style={iOSUIKit.subheadEmphasized}>
+                  {this.generateAddress(userDetails)}
+                </Text>
+              </FormWrapper>
 
               <ButtonWrapper>
                 <Text style={human.body}>
@@ -117,7 +100,7 @@ export class SubmitStep extends React.PureComponent {
                   source={require('./images/digime.png')}
                 />
 
-                <Button style={{ marginTop: 10 }} onPress={finalise}>
+                <Button style={{ marginTop: 30 }} onPress={finalise}>
                   Let's get this over with!
                 </Button>
               </ButtonWrapper>
