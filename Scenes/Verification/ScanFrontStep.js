@@ -54,7 +54,7 @@ export class ScanFrontStep extends React.PureComponent {
                     disabled={!frontImage}
                     onPress={goToNextStep}
                   >
-                    Yes, let's proceed
+                    Yes, it's good
                   </Button>
                 </ButtonWrapper>
               </Animatable.View>

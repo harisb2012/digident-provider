@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Image } from 'react-native'
-import { iOSUIKit } from 'react-native-typography'
+import { iOSUIKit, human } from 'react-native-typography'
 import { TextField } from 'react-native-material-textfield'
 import { VerificationLayout } from './components/VerificationLayout'
 import styled from 'styled-components/native'
@@ -8,6 +8,7 @@ import { Formik } from 'formik'
 import { VerificationContext } from './config/VerificationContext'
 import Button from '../../components/Button'
 import { customShadowStyle } from '../../properties/customShadowStyle'
+import { ButtonWrapper } from './components/ButtonWrapper'
 
 const ContentWrapper = styled.View`
   flex: 1;
@@ -17,11 +18,6 @@ const ContentWrapper = styled.View`
 const ImagesWrapper = styled.View`
   flex: 1;
   flex-direction: row;
-`
-
-const ButtonWrapper = styled.View`
-  flex: 1;
-  justify-content: flex-end;
 `
 
 const FormWrapper = styled.View`
@@ -102,7 +98,14 @@ export class SubmitStep extends React.PureComponent {
               </Formik>
 
               <ButtonWrapper>
-                <Button onPress={finalise}>Submit</Button>
+                <Text style={human.body}>
+                  After we verify your data, digi.me will make sure you never go
+                  through this hassle again!
+                </Text>
+
+                <Button style={{ marginTop: 20 }} onPress={finalise}>
+                  Let's get this over with!
+                </Button>
               </ButtonWrapper>
             </ContentWrapper>
           </VerificationLayout>

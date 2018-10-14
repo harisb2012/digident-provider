@@ -46,7 +46,7 @@ export class ScanBackStep extends React.PureComponent {
                   disabled={!backImage}
                   onPress={goToNextStep}
                 >
-                  Yeah, it's great!
+                  Yeah, looks great
                 </Button>
               </ButtonWrapper>
             </ContentWrapper>

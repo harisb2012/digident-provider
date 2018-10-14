@@ -7,12 +7,13 @@ import { DetailsStep } from './DetailsStep'
 import { SelfieStep } from './SelfieStep'
 import { SubmitStep } from './SubmitStep'
 import { iOSUIKit } from 'react-native-typography'
+import * as routes from '../../navigation/routes'
 
 import { flatten } from 'lodash'
 
 import { TabView, TabBar, SceneMap, PagerScroll } from 'react-native-tab-view'
 import { VerificationContext } from './config/VerificationContext'
-import { VerificationFormsDataContext } from './components/VerificationFormsDataContext';
+import { VerificationFormsDataContext } from './components/VerificationFormsDataContext'
 
 const styles = {
   tabbar: {
@@ -51,7 +52,7 @@ export class VerificationScene extends React.Component {
   }
 
   _finalise() {
-    alert('To be implemented')
+    this.props.navigation.navigate(routes.STATUS)
   }
 
   _goToNext() {

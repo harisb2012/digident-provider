@@ -50,7 +50,7 @@ export class SelfieStep extends React.PureComponent {
                   disabled={!selfie}
                   onPress={goToNextStep}
                 >
-                  Yeah, it's great!
+                  We both look great!
                 </Button>
               </ButtonWrapper>
             </ContentWrapper>
