@@ -65,9 +65,6 @@ export class SubmitStep extends React.Component {
                 ref={formik => {
                   this.formik = formik
                 }}
-                onSubmit={values => {
-                  this.props.onSubmit(values)
-                }}
               >
                 {({ handleChange, handleSubmit, values }) => (
                   <FormWrapper style={customShadowStyle}>
@@ -93,7 +90,7 @@ export class SubmitStep extends React.Component {
               </Formik>
 
               <ButtonWrapper>
-                <Button>Submit</Button>
+                <Button onPress={finalise}>Submit</Button>
               </ButtonWrapper>
             </ContentWrapper>
           </VerificationLayout>
