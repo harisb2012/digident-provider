@@ -27,18 +27,12 @@ const TabSelector = ({ selected }) => {
 export class LoginScene extends Component {
   constructor(props) {
     super(props)
-
-    this.selectCategory = this.selectCategory.bind(this)
     this.login = this.login.bind(this)
   }
 
-  selectCategory(selectedCategory) {
-    LayoutAnimation.easeInEaseOut()
-  }
 
   validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
     return re.test(email)
   }
 
