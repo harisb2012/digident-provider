@@ -22,7 +22,7 @@ const DataWrapper = styled.View`
 
 export class StatusScene extends React.PureComponent {
   get isVerified() {
-    return false
+    return true;
   }
 
   get notVerifiedContent() {
