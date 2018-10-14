@@ -1,26 +1,17 @@
-import React from 'react';
-import { Text } from 'react-native';
-import { iOSUIKit } from 'react-native-typography';
-import styled from 'styled-components/native';
-import Button from '../../components/Button';
-import { ImageTaker } from './components/ImageTaker';
-import { VerificationLayout } from './components/VerificationLayout';
-import { VerificationContext } from './config/VerificationContext';
-
-const CameraWrapper = styled.View`
-  flex: 1;
-  padding-top: 30;
-  max-height: 60%;
-`
+import React from 'react'
+import { Text } from 'react-native'
+import { iOSUIKit, human } from 'react-native-typography'
+import styled from 'styled-components/native'
+import Button from '../../components/Button'
+import { ImageTaker } from './components/ImageTaker'
+import { VerificationLayout } from './components/VerificationLayout'
+import { VerificationContext } from './config/VerificationContext'
+import { ButtonWrapper } from './components/ButtonWrapper'
+import { CameraWrapper } from './components/CameraWrapper'
 
 const ContentWrapper = styled.View`
   flex: 1;
   flex-direction: column;
-`
-
-const ButtonWrapper = styled.View`
-  flex: 1;
-  justify-content: flex-end;
 `
 
 export class ScanBackStep extends React.PureComponent {
@@ -45,11 +36,19 @@ export class ScanBackStep extends React.PureComponent {
                 />
               </CameraWrapper>
 
-              {!!backImage && (
-                <ButtonWrapper>
-                  <Button onPress={goToNextStep}>Next</Button>
-                </ButtonWrapper>
-              )}
+              <ButtonWrapper>
+                <Text style={human.body}>
+                  Is the whole back of the document easily readable?
+                </Text>
+
+                <Button
+                  style={{ marginTop: 20 }}
+                  disabled={!backImage}
+                  onPress={goToNextStep}
+                >
+                  Yeah, it's great!
+                </Button>
+              </ButtonWrapper>
             </ContentWrapper>
           </VerificationLayout>
         )}

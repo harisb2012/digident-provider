@@ -1,33 +1,17 @@
-import React from 'react';
-import { Text } from 'react-native';
-import { iOSUIKit, human } from 'react-native-typography';
-import styled from 'styled-components/native';
-import Button from '../../components/Button';
-import { ImageTaker } from './components/ImageTaker';
-import { VerificationLayout } from './components/VerificationLayout';
-import { VerificationContext } from './config/VerificationContext';
+import React from 'react'
+import { Text } from 'react-native'
+import { iOSUIKit, human } from 'react-native-typography'
+import styled from 'styled-components/native'
+import Button from '../../components/Button'
+import { ImageTaker } from './components/ImageTaker'
+import { VerificationLayout } from './components/VerificationLayout'
+import { ButtonWrapper } from './components/ButtonWrapper'
+import { CameraWrapper } from './components/CameraWrapper'
+import { VerificationContext } from './config/VerificationContext'
 
 const ContentWrapper = styled.View`
   flex: 1;
   flex-direction: column;
-`
-
-const CameraWrapper = styled.View`
-  flex: 3;
-  margin-top: 30;
-  overflow: hidden;
-  border-radius: 15;
-`
-
-const ButtonWrapper = styled.View`
-  flex: 1;
-  margin-top: 30;
-  margin-bottom: 30;
-  justify-content: center;
-  background: white;
-  border-radius: 15;
-  padding: 10px 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `
 
 export class ScanFrontStep extends React.PureComponent {
@@ -49,14 +33,14 @@ export class ScanFrontStep extends React.PureComponent {
                   }}
                   value={frontImage}
                   onTaken={uri => {
-                    setFrontImage(uri);
+                    setFrontImage(uri)
                   }}
                 />
               </CameraWrapper>
 
               <ButtonWrapper>
                 <Text style={human.body}>
-                  Is the snap of the document easily readable?
+                  Is the whole front of the document easily readable?
                 </Text>
 
                 <Button
