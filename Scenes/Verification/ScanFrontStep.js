@@ -15,12 +15,15 @@ const ContentWrapper = styled.View`
 
 const CameraWrapper = styled.View`
   flex: 3;
-  padding-top: 30;
+  margin-top: 30;
+  overflow: hidden;
+  border-radius: 15;
 `
 
 const ButtonWrapper = styled.View`
   flex: 1;
-  margin-top: 50;
+  margin-top: 30;
+  margin-bottom: 30;
   justify-content: center;
   background: white;
   border-radius: 15;

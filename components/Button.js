@@ -28,7 +28,7 @@ export default class Button extends React.Component {
     )
 
     return (
-      <TouchableOpacity onPress={this.props.onPress} style={style}>
+      <TouchableOpacity onPress={!disabled && onPress} style={style}>
         <LinearGradient
           style={styles.linearGradient}
           colors={[bgColorFrom, bgColorTo]}
