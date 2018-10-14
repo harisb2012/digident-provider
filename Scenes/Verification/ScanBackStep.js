@@ -6,8 +6,8 @@ import styled from 'styled-components/native'
 import { VerificationLayout } from './components/VerificationLayout'
 import IdentityService from '../../Services/IdentityService'
 import { VerificationContext } from './config/VerificationContext'
-import { ImageTaker } from './components/ImageTaker';
-import Button from '../../components/Button';
+import { ImageTaker } from './components/ImageTaker'
+import Button from '../../components/Button'
 
 const CameraWrapper = styled.View`
   flex: 1;

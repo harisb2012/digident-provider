@@ -10,7 +10,7 @@ import { iOSUIKit } from 'react-native-typography'
 import { flatten } from 'lodash'
 
 import { TabView, TabBar, SceneMap, PagerScroll } from 'react-native-tab-view'
-import { VerificationContext } from './config/VerificationContext';
+import { VerificationContext } from './config/VerificationContext'
 
 const styles = {
   tabbar: {
@@ -31,10 +31,10 @@ const styles = {
 
 export class VerificationScene extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this._goToNext = this._goToNext.bind(this);
-    this._finalise = this._finalise.bind(this);
+    this._goToNext = this._goToNext.bind(this)
+    this._finalise = this._finalise.bind(this)
 
     this.state = {
       index: 0,
@@ -43,19 +43,16 @@ export class VerificationScene extends React.Component {
         { key: 'back', title: '2' },
         { key: 'details', title: '3' },
         { key: 'selfie', title: '4' }
-      ],
-
-      goToNextStep: this._goToNext,
-      finalise: this._finalise
+      ]
     }
   }
 
   _finalise() {
-    alert('To be implemented');
+    alert('To be implemented')
   }
 
   _goToNext() {
-    this.setState(prev => ({ index: prev.index + 1 }));
+    this.setState(prev => ({ index: prev.index + 1 }))
   }
 
   _handleIndexChange = index => {
@@ -114,7 +111,9 @@ export class VerificationScene extends React.Component {
   render() {
     return (
       <AppLayout>
-        <VerificationContext.Provider value={this.state}>
+        <VerificationContext.Provider
+          value={{ goToNextStep: this._goToNext, finalise: this._finalise }}
+        >
           <TabView
             scrollEnabled={false}
             style={{ flex: 1 }}

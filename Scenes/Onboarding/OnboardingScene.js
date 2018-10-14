@@ -77,7 +77,7 @@ export class OnboardingScene extends React.PureComponent {
   }
 
   _onDone = () => {
-    this.props.navigation.navigate(routes.ROOT_APP)
+    this.props.navigation.navigate(routes.VERIFICATION)
   }
 
   render() {
