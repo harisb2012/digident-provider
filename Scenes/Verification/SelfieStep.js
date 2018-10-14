@@ -35,7 +35,7 @@ export class SelfieStep extends React.PureComponent {
             <Text
               style={iOSUIKit.subheadEmphasizedWhite}
             >
-              Place it right next to your head {JSON.stringify(userDetails)}
+              Place it right next to your head
             </Text>
 
             <ContentWrapper>

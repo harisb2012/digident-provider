@@ -33,11 +33,15 @@ const FormWrapper = styled.View`
 
 const imageStyles = { flex: 1, width: 100, height: 100, marginTop: 30 }
 
-export class SubmitStep extends React.Component {
+export class SubmitStep extends React.PureComponent {
+  generateAddress({ city, zip, address, country }) {
+    return `${address}, ${city}, ${zip}, ${country}`;
+  }
+
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ finalise }) => (
+        {({ finalise, userDetails, frontImage, backImage, selfie }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Awesome!</Text>
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
@@ -48,15 +52,21 @@ export class SubmitStep extends React.Component {
             <ContentWrapper>
               <ImagesWrapper>
                 <Image
-                  source={require('../Onboarding/illustrations/selfie.png')}
+                  source={{
+                    uri: frontImage
+                  }}
                   style={imageStyles}
                 />
                 <Image
-                  source={require('../Onboarding/illustrations/selfie.png')}
+                  source={{
+                    uri: backImage
+                  }}
                   style={imageStyles}
                 />
                 <Image
-                  source={require('../Onboarding/illustrations/selfie.png')}
+                  source={{
+                    uri: selfie
+                  }}
                   style={imageStyles}
                 />
               </ImagesWrapper>
@@ -71,19 +81,19 @@ export class SubmitStep extends React.Component {
                     <TextField
                       label="First Name"
                       editable={false}
-                      value="Test"
+                      value={userDetails.firstName}
                     />
 
                     <TextField
                       label="Last Name"
                       editable={false}
-                      value="Test"
+                      value={userDetails.lastName}
                     />
 
                     <TextField
                       label="Address, City, Zip Code, Country"
                       editable={false}
-                      value="Test"
+                      value={this.generateAddress(userDetails)}
                     />
                   </FormWrapper>
                 )}
