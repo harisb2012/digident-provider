@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { iOSUIKit } from 'react-native-typography'
+import { merge } from 'lodash'
 
 const styles = {
   linearGradient: {
@@ -15,14 +16,19 @@ const styles = {
 
 export default class Button extends React.Component {
   render() {
-    const {
-      onPress,
-      children,
-      bgColorFrom = '#B12775',
-      bgColorTo = '#F8686C'
-    } = this.props
+    const { onPress, children, disabled, style } = this.props
+
+    const { bgColorFrom, bgColorTo } = merge(
+      {
+        bgColorFrom: '#B12775',
+        bgColorTo: '#F8686C'
+      },
+      { bgColorFrom: this.props.bgColorFrom, bgColorTo: this.props.bgColorTo },
+      disabled && { bgColorFrom: '#CCCCCC', bgColorTo: '#999999' }
+    )
+
     return (
-      <TouchableOpacity onPress={this.props.onPress}>
+      <TouchableOpacity onPress={this.props.onPress} style={style}>
         <LinearGradient
           style={styles.linearGradient}
           colors={[bgColorFrom, bgColorTo]}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from 'react-native'
-import { iOSUIKit } from 'react-native-typography'
+import { iOSUIKit, human } from 'react-native-typography'
 import styled from 'styled-components/native'
 import { VerificationLayout } from './components/VerificationLayout'
 import { ImageTaker } from './components/ImageTaker'
@@ -8,20 +8,24 @@ import IdentityService from '../../Services/IdentityService'
 import Button from '../../components/Button'
 import { VerificationContext } from './config/VerificationContext'
 
-const CameraWrapper = styled.View`
-  flex: 1;
-  padding-top: 30;
-  max-height: 60%;
-`
-
 const ContentWrapper = styled.View`
   flex: 1;
   flex-direction: column;
 `
 
+const CameraWrapper = styled.View`
+  flex: 3;
+  padding-top: 30;
+`
+
 const ButtonWrapper = styled.View`
   flex: 1;
-  justify-content: flex-end;
+  margin-top: 50;
+  justify-content: center;
+  background: white;
+  border-radius: 15;
+  padding: 10px 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `
 
 export class ScanFrontStep extends React.Component {
@@ -54,11 +58,19 @@ export class ScanFrontStep extends React.Component {
                 />
               </CameraWrapper>
 
-              {this.state.hasImage && (
-                <ButtonWrapper>
-                  <Button onPress={goToNextStep}>Next</Button>
-                </ButtonWrapper>
-              )}
+              <ButtonWrapper>
+                <Text style={human.body}>
+                  Is the snap of the document easily readable?
+                </Text>
+
+                <Button
+                  style={{ marginTop: 20 }}
+                  disabled={!this.state.hasImage}
+                  onPress={goToNextStep}
+                >
+                  Yes, let's proceed
+                </Button>
+              </ButtonWrapper>
             </ContentWrapper>
           </VerificationLayout>
         )}

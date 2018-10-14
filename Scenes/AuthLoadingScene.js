@@ -9,7 +9,7 @@ const styles = {
 export class AuthLoadingScene extends React.Component {
   componentDidMount() {
     setTimeout(() => {
-      this.props.navigation.navigate(routes.ONBOARDING)
+      this.props.navigation.navigate(routes.VERIFICATION)
     }, 1000)
   }
 
