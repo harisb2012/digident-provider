@@ -36,7 +36,7 @@ export class SelfieStep extends React.Component {
   render() {
     return (
       <VerificationContext.Consumer>
-        {({ finalise }) => (
+        {({ goToNextStep }) => (
           <VerificationLayout>
             <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Take a Selfie With ID Document</Text>
             <Text
@@ -59,7 +59,7 @@ export class SelfieStep extends React.Component {
 
               {this.state.hasImage && (
                 <ButtonWrapper>
-                  <Button onPress={finalise}>Finish</Button>
+                  <Button onPress={goToNextStep}>Finish</Button>
                 </ButtonWrapper>
               )}
             </ContentWrapper>

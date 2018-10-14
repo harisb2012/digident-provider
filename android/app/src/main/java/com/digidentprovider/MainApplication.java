@@ -3,6 +3,7 @@ package com.digidentprovider;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.lottie.LottiePackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import org.reactnative.camera.RNCameraPackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LottiePackage(),
             new RNSpinkitPackage(),
           new RNCameraPackage(),
           new LinearGradientPackage()

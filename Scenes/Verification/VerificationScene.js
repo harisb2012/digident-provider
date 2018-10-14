@@ -5,6 +5,7 @@ import { AppLayout } from '../../components/Layout/AppLayout'
 import { ScanBackStep } from './ScanBackStep'
 import { DetailsStep } from './DetailsStep'
 import { SelfieStep } from './SelfieStep'
+import { SubmitStep } from './SubmitStep'
 import { iOSUIKit } from 'react-native-typography'
 
 import { flatten } from 'lodash'
@@ -42,7 +43,8 @@ export class VerificationScene extends React.Component {
         { key: 'front', title: '1' },
         { key: 'back', title: '2' },
         { key: 'details', title: '3' },
-        { key: 'selfie', title: '4' }
+        { key: 'selfie', title: '4' },
+        { key: 'submit', title: '5' }
       ]
     }
   }
@@ -63,7 +65,8 @@ export class VerificationScene extends React.Component {
     front: ScanFrontStep,
     back: ScanBackStep,
     details: DetailsStep,
-    selfie: SelfieStep
+    selfie: SelfieStep,
+    submit: SubmitStep
   })
 
   _renderTabBar = props => (

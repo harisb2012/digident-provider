@@ -4,6 +4,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import { iOSUIKit } from 'react-native-typography';
 import * as routes from '../../../navigation/routes';
 import { customShadowStyle } from '../../../properties/customShadowStyle';
+import { AnimatedCheckmark } from '../../../components/Animated/AnimatedCheckmark';
 
 const Wrapper = styled.View`
   background: white;
@@ -13,10 +14,6 @@ const Wrapper = styled.View`
 `;
 
 const Title = styled.Text`
-  text-align: center;
-`;
-
-const DetailsText = styled.Text`
   text-align: center;
 `;
 
@@ -35,9 +32,7 @@ export class VerifiedStatus extends React.PureComponent {
       <Wrapper style={customShadowStyle}>
         <Title style={iOSUIKit.title3Emphasized}>You are verified!</Title>
 
-        <TouchableOpacity onPress={this.goToDetails}>
-          <DetailsText style={iOSUIKit.body}>Click here to check details</DetailsText>
-        </TouchableOpacity>
+        <AnimatedCheckmark />
       </Wrapper>
     );
   }
