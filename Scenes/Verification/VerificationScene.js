@@ -5,12 +5,13 @@ import { AppLayout } from '../../components/Layout/AppLayout'
 import { ScanBackStep } from './ScanBackStep'
 import { DetailsStep } from './DetailsStep'
 import { SelfieStep } from './SelfieStep'
+import { SubmitStep } from './SubmitStep'
 import { iOSUIKit } from 'react-native-typography'
 
 import { flatten } from 'lodash'
 
 import { TabView, TabBar, SceneMap, PagerScroll } from 'react-native-tab-view'
-import { VerificationContext } from './config/VerificationContext';
+import { VerificationContext } from './config/VerificationContext'
 
 const styles = {
   tabbar: {
@@ -31,10 +32,10 @@ const styles = {
 
 export class VerificationScene extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this._goToNext = this._goToNext.bind(this);
-    this._finalise = this._finalise.bind(this);
+    this._goToNext = this._goToNext.bind(this)
+    this._finalise = this._finalise.bind(this)
 
     this.state = {
       index: 0,
@@ -42,7 +43,8 @@ export class VerificationScene extends React.Component {
         { key: 'front', title: '1' },
         { key: 'back', title: '2' },
         { key: 'details', title: '3' },
-        { key: 'selfie', title: '4' }
+        { key: 'selfie', title: '4' },
+        { key: 'submit', title: '5' }
       ],
 
       goToNextStep: this._goToNext,
@@ -51,11 +53,11 @@ export class VerificationScene extends React.Component {
   }
 
   _finalise() {
-    alert('To be implemented');
+    alert('To be implemented')
   }
 
   _goToNext() {
-    this.setState(prev => ({ index: prev.index + 1 }));
+    this.setState(prev => ({ index: prev.index + 1 }))
   }
 
   _handleIndexChange = index => {
@@ -66,7 +68,8 @@ export class VerificationScene extends React.Component {
     front: ScanFrontStep,
     back: ScanBackStep,
     details: DetailsStep,
-    selfie: SelfieStep
+    selfie: SelfieStep,
+    submit: SubmitStep
   })
 
   _renderTabBar = props => (
