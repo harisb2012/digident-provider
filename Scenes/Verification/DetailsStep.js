@@ -7,8 +7,8 @@ import styled from 'styled-components/native'
 import Button from '../../components/Button'
 import { customShadowStyle } from '../../properties/customShadowStyle'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { VerificationContext } from './config/VerificationContext';
-import IdentityService from '../../Services/IdentityService';
+import { VerificationContext } from './config/VerificationContext'
+import IdentityService from '../../Services/IdentityService'
 
 const FormWrapper = styled.View`
   background: white;
@@ -36,29 +36,37 @@ export class DetailsStep extends React.PureComponent {
       <VerificationContext.Consumer>
         {({ goToNextStep, userDetails, setUserDetails }) => (
           <VerificationLayout>
-            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Personal Details</Text>
+            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>
+              Personal Details
+            </Text>
 
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
               Please confirm your personal details
             </Text>
 
-            <KeyboardAwareScrollView contentContainerStyle={contentContainerStyle}>
+            <KeyboardAwareScrollView
+              contentContainerStyle={contentContainerStyle}
+            >
               <FormWrapper style={customShadowStyle}>
                 <DetailsForm
                   ref={form => {
-                    this.form = form;
+                    this.form = form
                   }}
                   initialValue={userDetails}
-                  onSubmit={(values) => {
-                    setUserDetails(values);
-                    goToNextStep();
+                  onSubmit={values => {
+                    setUserDetails(values)
+                    goToNextStep()
                   }}
                 />
 
                 <ButtonWrapper>
-                  <Button onPress={() => {
-                    this.form.submit();
-                  }}>Next</Button>
+                  <Button
+                    onPress={() => {
+                      this.form.submit()
+                    }}
+                  >
+                    All looks good!
+                  </Button>
                 </ButtonWrapper>
               </FormWrapper>
             </KeyboardAwareScrollView>

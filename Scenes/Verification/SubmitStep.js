@@ -35,7 +35,7 @@ const imageStyles = { flex: 1, width: 100, height: 100, marginTop: 30 }
 
 export class SubmitStep extends React.PureComponent {
   generateAddress({ city, zip, address, country }) {
-    return `${address}, ${city}, ${zip}, ${country}`;
+    return `${address}, ${city}, ${zip}, ${country}`
   }
 
   render() {
@@ -43,33 +43,35 @@ export class SubmitStep extends React.PureComponent {
       <VerificationContext.Consumer>
         {({ finalise, userDetails, frontImage, backImage, selfie }) => (
           <VerificationLayout>
-            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>Awesome!</Text>
+            <Text style={iOSUIKit.largeTitleEmphasizedWhite}>All done!</Text>
             <Text style={iOSUIKit.subheadEmphasizedWhite}>
-              You have been successfully verified. Please review your data
-              before sending it to digi.me
+              We have everything, just review once more before sending it over
+              and saving to digi.me
             </Text>
 
             <ContentWrapper>
-              <ImagesWrapper>
-                <Image
-                  source={{
-                    uri: frontImage
-                  }}
-                  style={imageStyles}
-                />
-                <Image
-                  source={{
-                    uri: backImage
-                  }}
-                  style={imageStyles}
-                />
-                <Image
-                  source={{
-                    uri: selfie
-                  }}
-                  style={imageStyles}
-                />
-              </ImagesWrapper>
+              {frontImage && backImage && selfie ? (
+                <ImagesWrapper>
+                  <Image
+                    source={{
+                      uri: frontImage
+                    }}
+                    style={imageStyles}
+                  />
+                  <Image
+                    source={{
+                      uri: backImage
+                    }}
+                    style={imageStyles}
+                  />
+                  <Image
+                    source={{
+                      uri: selfie
+                    }}
+                    style={imageStyles}
+                  />
+                </ImagesWrapper>
+              ) : null}
 
               <Formik
                 ref={formik => {

@@ -8,6 +8,7 @@ import { VerificationLayout } from './components/VerificationLayout'
 import { ButtonWrapper } from './components/ButtonWrapper'
 import { CameraWrapper } from './components/CameraWrapper'
 import { VerificationContext } from './config/VerificationContext'
+import * as Animatable from 'react-native-animatable'
 
 const ContentWrapper = styled.View`
   flex: 1;
@@ -26,31 +27,37 @@ export class ScanFrontStep extends React.PureComponent {
             </Text>
 
             <ContentWrapper>
-              <CameraWrapper>
-                <ImageTaker
-                  ref={imageTaker => {
-                    this.imageTaker = imageTaker
-                  }}
-                  value={frontImage}
-                  onTaken={uri => {
-                    setFrontImage(uri)
-                  }}
-                />
-              </CameraWrapper>
+              <Animatable.View
+                animation="zoomInUp"
+                style={{ flex: 1 }}
+                useNativeDriver
+              >
+                <CameraWrapper>
+                  <ImageTaker
+                    ref={imageTaker => {
+                      this.imageTaker = imageTaker
+                    }}
+                    value={frontImage}
+                    onTaken={uri => {
+                      setFrontImage(uri)
+                    }}
+                  />
+                </CameraWrapper>
 
-              <ButtonWrapper>
-                <Text style={human.body}>
-                  Is the whole front of the document easily readable?
-                </Text>
+                <ButtonWrapper>
+                  <Text style={human.body}>
+                    Is the whole front of the document easily readable?
+                  </Text>
 
-                <Button
-                  style={{ marginTop: 20 }}
-                  disabled={!frontImage}
-                  onPress={goToNextStep}
-                >
-                  Yes, let's proceed
-                </Button>
-              </ButtonWrapper>
+                  <Button
+                    style={{ marginTop: 20 }}
+                    disabled={!frontImage}
+                    onPress={goToNextStep}
+                  >
+                    Yes, let's proceed
+                  </Button>
+                </ButtonWrapper>
+              </Animatable.View>
             </ContentWrapper>
           </VerificationLayout>
         )}
