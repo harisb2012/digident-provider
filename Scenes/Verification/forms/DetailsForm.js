@@ -53,7 +53,7 @@ export class DetailsForm extends React.Component {
 
             <TextField
               label='Country'
-              onChangeText={handleChange('city')}
+              onChangeText={handleChange('country')}
             />
           </Wrapper>
         )}
